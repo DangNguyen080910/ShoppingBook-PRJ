@@ -1,0 +1,135 @@
+body{
+	display: grid;
+	grid-template-columns: 20% 80%;
+	grid-template-rows: 1500px;
+	background:url("../images/Background.jpg") repeat;
+}
+.menu-area{
+	background: #333;
+	color: white;
+	text-align: center;
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
+}
+.imgIcon{
+	width: 25px;
+	height: 25px;
+	padding: 3px;
+	padding-bottom: 5px;
+}
+.logout{
+	margin-top: 50px;
+}
+.breadcrumb{
+	background: gray;
+}
+.line{
+	width: 1080px;
+}
+.sidebar{
+	text-align: left;
+}
+.menu-area a {
+  color: #fff;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: block;
+  padding: 0 25px;
+  font-size: 14px;
+  line-height: 30px;
+  position: relative;
+  z-index: 1;
+}
+.menu-area a:hover {
+  background: tomato;
+  color: #fff;
+}
+.sub-menu{
+	text-align: center;
+}
+
+/* dashboard */
+.top-dashboard{
+	height: 30%;
+	width: 100%;
+	display: flex;
+}
+.top-dashboard-item{
+	margin: 10px;
+	width: 500px;
+	height: 200px;
+	color: white;
+}
+.top-dashboard-item1{	
+	background-color: #DE522A;	
+	
+}
+.top-dashboard-item2{	
+	background-color: #FEB648;
+}
+.top-dashboard-item3{	
+	background-color: #20ACDE;
+}
+.main-dashboard{
+	height: 70%;
+	width: 100%;
+	background-color: #27B479;
+	text-align: center;
+}
+
+.flex-dashboard{
+	height: 750px;
+	display: flex;
+	flex-direction: column;
+}
+
+.img-dashboard{
+	width: 70px;
+	height: 70px;
+	float: right;
+	margin: 50px;
+}
+.img-main{
+	width: 200px;
+	height: 200px;
+	float: right;
+	margin-top: 80px;
+	margin-right: 250px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

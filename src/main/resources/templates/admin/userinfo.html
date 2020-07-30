@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<title>User Info</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div>	
+			<a href="../adminPortal" style="color: red;">Dashboard</a>
+			<a href="../userList" style="color: green;">/User Management</a>
+			<span style="color: blue;">/User Info</span>
+		</div>
+		<div class="container mt-5">
+			<div class="row" style="margin-left: 5px;">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>USER INFORMATION</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+			</div>
+			<div class="container mt-5">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a th:href="@{/admin/userList}"><i
+								class="fas fa-long-arrow-alt-left"></i>Go back</a></li>
+					</ol>
+				</nav>
+				<div class="row">
+					<div class="col-md-6">
+						<p>
+							<strong>User ID: </strong><span th:text="${user.id}"></span>
+						</p>
+						<p>
+							<strong>User Name: </strong><span th:text="${user.username}"></span>
+						</p>
+						<p>
+							<strong>Email: </strong><span th:text="${user.email}"></span>
+						</p>
+						<p>
+							<strong>Phone:  </strong><span th:text="${user.phone}"></span>
+						</p>
+						<p>
+							<strong>Active: </strong><span th:text="${user.enabled}"></span>
+						</p>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

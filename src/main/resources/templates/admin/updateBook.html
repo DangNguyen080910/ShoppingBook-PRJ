@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<title>Update Book</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+
+			<div class="my-5">
+				<form th:action="@{/admin/book/edit}" method="post"
+					enctype="multipart/form-data" th:object="${book}">
+					<fieldset>
+						<legend class="text-center my-5">Update Book Information</legend>
+
+						<input hidden="hidden" name="id" th:value="${book.id}" />
+						<!-- title -->
+						<div class="form-group row">
+							<label for="title" class="col-sm-2 col-form-label">Title</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" th:field="*{title}" th:value="${book.title}"/>
+								<span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+							</div>
+						</div>
+
+						<!-- author -->
+						<div class="form-group row">
+							<label for="author" class="col-sm-2 col-form-label">Author</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="author"
+									name="author" placeholder="Enter author"
+									th:value="${book.author}"/>
+									<span class="text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+							</div>
+						</div>
+
+						<!-- publisher -->
+						<div class="form-group row">
+							<label for="publisher" class="col-sm-2 col-form-label">Publisher</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="publisher"
+									name="publisher" placeholder="Enter Publisher"
+									th:value="${book.publisher}"/>
+									<span class="text-danger" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></span>
+							</div>
+						</div>
+
+						<!-- publisher date -->
+						<div class="form-group row">
+							<label for="publicationDate" class="col-sm-2 col-form-label">Publication
+								Date</label>
+							<div class="col-sm-8">
+								<input type="date" class="form-control" id="publicationDate"
+									placeholder="Enter Publication Date" name="publicationDate"
+									th:value="${book.publicationDate}"/>
+									<span class="text-danger" th:if="${#fields.hasErrors('publicationDate')}" th:errors="*{publicationDate}"></span>
+							</div>
+						</div>
+
+						<!-- language -->
+						<div class="form-group row">
+							<label for="language" class="col-sm-2 col-form-label">Language</label>
+							<div class="col-sm-8">
+								<select id="language" name="language" class="form-control" th:field="*{language}">
+									<option value="" selected="selected">Please
+										select an option...</option>
+									<option value="English">English</option>
+									<option value="Spanish">Spanish</option>
+									<option value="Japanese">Japanese</option>
+									<option value="Chinese">Chinese</option>
+									<option value="VietNam">VietNam</option>
+									<option value="Other">Other...</option>
+								</select>
+								<span class="text-danger" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>						
+							</div>
+						</div>
+
+						<!-- category -->
+						<div class="form-group row">
+							<label for="category" class="col-sm-2 col-form-label">Category</label>
+							<div class="col-sm-8">
+								<select id="category" name="category" class="form-control" 
+								th:field="*{category}">
+									<option value="" selected="selected">Please
+										select an option...</option>
+									<option th:each="category: ${categoryList}"
+				                            th:value="${category.id}"
+				                            th:text="${category.category}"/>
+								</select>
+								<span class="text-danger" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+							</div>
+						</div>
+
+						<!-- pages -->
+						<div class="form-group row">
+							<label for="pages" class="col-sm-2 col-form-label">Number
+								of Pages</label>
+							<div class="col-sm-8">
+								<input type="number" min="1" max="2000" class="form-control" id="pages"
+									name="numberOfPages" placeholder="Enter Pages"
+									th:value="${book.numberOfPages}"/>
+							</div>
+						</div>
+
+						<!-- format -->
+						<div class="form-group row">
+							<label for="format" class="col-sm-2 col-form-label">Format</label>
+							<div class="col-sm-8">
+								<select id="format" name="format" class="form-control"
+									th:field="*{format}">
+									<option value="" selected="selected">Please
+										select an option...</option>
+									<option value="Paperback">Paperback</option>
+									<option value="Hardcover">Hardcover</option>
+								</select>
+								<span class="text-danger" th:if="${#fields.hasErrors('format')}" th:errors="*{format}"></span>
+							</div>
+						</div>
+
+						<!-- isbn -->
+						<div class="form-group row">
+							<label for="isbn" class="col-sm-2 col-form-label">ISBN</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="isbn" name="isbn"
+									placeholder="Enter ISBN" th:value="${book.isbn}"/>
+									<span class="text-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+							</div>
+						</div>
+
+						<!-- shipping weight -->
+						<div class="form-group row">
+							<label for="shippingWeight" class="col-sm-2 col-form-label">Shipping
+								Weight</label>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<input type="number" min="0.01" max="100" class="form-control" id="shippingWeight"
+										name="shippingWeight" placeholder="Enter Shipping Weight"
+										step="0.01" th:value="${book.shippingWeight}" />
+									<div class="input-group-append">
+										<span class="input-group-text">lbs</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- list price -->
+						<div class="form-group row">
+							<label for="listPrice" class="col-sm-2 col-form-label">List
+								Price</label>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<div class="input-group-append">
+										<span class="input-group-text">$</span>
+									</div>
+									<input type="number" min="1" max="500" class="form-control" id="listPrice"
+										name="listPrice" placeholder="Enter List Price" step="0.01"
+										th:value="${book.listPrice}"/>
+								</div>
+							</div>
+						</div>
+
+						<!-- our price -->
+						<div class="form-group row">
+							<label for="ourPrice" class="col-sm-2 col-form-label">Our
+								Price</label>
+							<div class="col-sm-8">
+								<div class="input-group">
+									<div class="input-group-append">
+										<span class="input-group-text">$</span>
+									</div>
+									<input type="number" min="1" max="500" class="form-control" id="ourPrice"
+										name="ourPrice" placeholder="Enter Price" step="0.01"
+										th:value="${book.ourPrice}"/>
+								</div>
+							</div>
+						</div>
+
+						<!-- in stock number -->
+						<div class="form-group row">
+							<label for="inStockNumber" class="col-sm-2 col-form-label">Number
+								in Stock</label>
+							<div class="col-sm-8">
+								<input type="number" min="1" max="500" class="form-control" id="inStockNumber"
+									name="inStockNumber" placeholder="Enter Number in Stock"
+									th:value="${book.inStockNumber}"/>
+							</div>
+						</div>
+
+						<!-- status -->
+						<div class="form-group row">
+							<label for="status" class="col-sm-2 col-form-label">Status</label>
+							<div class="col-sm-8">
+								<label><input value="true" type="radio" name="active"
+									checked="checked" /> Active </label> <label><input
+									value="false" type="radio" name="active" /> Inactive </label>
+							</div>
+						</div>
+
+						<!-- description -->
+						<div class="form-group row" id="editor">
+							<label for="description" class="col-sm-2 col-form-label">Description</label>
+							<div class="col-sm-8">
+								<textarea name="description" rows="5" class="form-control"
+									id="description" placeholder="Description"
+									th:value="${book.description}" th:text="${book.description}"></textarea>
+									<span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+							</div>
+						</div>
+
+						<!-- upload image -->
+						<div class="form-group row">
+							<label for="bookImage" class="col-sm-2 col-form-label">Upload
+								book image</label>
+							<div class="col-sm-8">
+								<input type="file" class="form-control" id="bookImage"
+									name="bookImage" th:value="${book.bookImage}"/>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<div class="col-sm-2"></div>
+							<div class="col-sm-10">
+								<button type="submit" class="btn btn-primary">Save</button>
+								<a class="btn btn-danger"
+									th:href="@{/admin/book/info(id=${book.id})}">Cancel</a>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+
+		</div>
+	
+	</section>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<title>Add Role</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>Add Role</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div>
+				<img class=" wood-img" th:src="@{/images/wood.png}" />
+			</div>
+			<div class="mt-3">
+				<form th:action="@{/admin/role/add}" th:object="${role}" method="post">
+					<div class="form-group row">
+						<label for="roleName" class="col-sm-2 col-form-label">Role Name</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="roleName"
+								placeholder="Enter role name" th:field="*{name}">
+							<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="description" class="col-sm-2 col-form-label">Description</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="description"
+								placeholder="Enter description" th:field="*{description}">
+							<span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<button type="submit" class="btn btn-primary">Sign in</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+
+	</section>
+</body>
+</html>

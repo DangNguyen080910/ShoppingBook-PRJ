@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/user-layout">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<section layout:fragment="user-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>G3's BookStore</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="alert alert-success">
+						<h3>
+							<i class="fa fa-check" aria-hidden="true"
+								style="color: limegreen;"></i> Thank you, your order has been
+							placed.
+						</h3>
+						<h4>
+							The estimated delivery date is <span
+								th:text="${estimatedDeliveryDate}"></span>
+						</h4>
+					</div>
+					<h3>List of Items</h3>
+					<div class="row" th:each="cartItem : ${cartItemList}">
+						<hr />
+						<div class="col-md-2"></div>
+						<div class="col-md-2">
+
+							<a th:href="@{/bookDetail(id=${cartItem.book.id})}"> <img
+								class="img-fluid shelf-book"
+								th:src="#{adminPath}+@{/images/book/}+${cartItem.book.id}+'.png'"
+								style="width: 70px;" />
+							</a>
+						</div>
+						<div class="col-md-6">
+							<div style="margin-left: 50px;">
+								<a th:href="@{/bookDetail?id=}+${cartItem.book.id}"><strong
+									th:text="${cartItem.book.title}"></strong>></a>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<h5 style="color: #db3208; font-size: large;">
+								$<span th:text="${cartItem.book.ourPrice}"
+									th:style="${cartItem.book.inStockNumber}==0? 'text-decoration: line-through' : ''"></span>
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

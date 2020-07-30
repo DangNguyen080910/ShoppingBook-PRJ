@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>Review management</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div>
+				<a href="../admin/adminPortal" style="color: red;">Dashboard</a>
+				<span style="color: green;">/Review Management</span>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>REVIEW MANAGEMENT</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>				
+			</div>
+			<div class="mt-5">
+				<table id="userListTable">
+					<thead>
+						<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Date</th>
+							<th scope="col">Rating</th>
+							<th scope="col">Comment</th>
+							<th scope="col">Operation</th>
+						</tr>
+					</thead>					
+					<tbody>
+						<tr data-th-each="cmrt: ${cmrtList}">
+							<td> 
+							<span style="color: black;" th:text="${cmrt.id}"></span>
+							</td>
+							<td> 
+							<span style="color: black;" th:text="${cmrt.date}"></span>
+							</td>
+							<td> 
+							<span style="color: black;" th:text="${cmrt.rating}"></span>
+							</td>
+							<td> 
+							<span style="color: black;" th:text="${cmrt.comment}"></span>
+							</td>
+							<td>
+								<input type="hidden" name="id" th:value="${cmrt.id}"/>
+								<a th:id="${cmrt.id}" class="btn btn-danger delete-cmrt">Delete</a>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

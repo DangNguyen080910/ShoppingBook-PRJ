@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/user-layout">
+<head>
+<title>User Account</title>
+</head>
+<body>
+	<section layout:fragment="user-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>User Account</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div>
+				<img class="img-fluid" th:src="@{/images/wood.png}"
+					style="margin-top: -36px" />
+			</div>
+			<div class="row mt-5">
+				<div class="col-md-9 offset-md-2">
+
+					<!-- nav tab -->
+					<nav>
+						<div class="nav nav-tabs" id="nav-tab" role="tablist">
+							<a class="nav-item nav-link" id="nav-create-account-tab"
+								data-toggle="tab" href="#tab-1" role="tab"
+								aria-controls="nav-create-account" aria-selected="false"
+								th:classappend="${activeNewUser} ? 'active'">Create new
+								account</a> <a class="nav-item nav-link" id="nav-login-tab"
+								data-toggle="tab" href="#tab-2" role="tab"
+								aria-controls="nav-login" aria-selected="false"
+								th:classappend="${activeLogin} ? 'active'">Log in</a> <a
+								class="nav-item nav-link" id="nav-forget-password-tab"
+								data-toggle="tab" href="#tab-3" role="tab"
+								aria-controls="nav-forget-password" aria-selected="false"
+								th:classappend="${activeForgetPw} ? 'active'">Forget</a>
+						</div>
+					</nav>
+
+					<!-- nav content -->
+					<div class="tab-content" id="nav-tabContent">
+
+						<!-- create new account tab -->
+						<div class="tab-pane fade" id="tab-1" role="tabpanel"
+							aria-labelledby="nav-create-account-tab"
+							th:classappend="${activeNewUser} ? 'show active'">
+							<div class="alert alert-info" th:if="${emailSent}">An email
+								has been sent to the email address you just registered. Please
+								validate your email address and update your password
+								information.</div>
+							<div class="alert alert-info" th:if="${emailExist}">Email
+								already exist.</div>
+							<form class="jumbotron" th:object="${user}"
+								th:action="@{/createNewUser}" method="post">
+								<div class="form-group">
+									<label for="newUsername">User Name: </label> <input
+										required="required" type="text" class="form-control"
+										id="newUsername" name="username" th:field="*{username}"
+										placeholder="Enter your user name here" />
+								</div>
+								<div class="form-group">
+									<label for="newEmail">Email: </label> <input
+										required="required" type="email" class="form-control"
+										id="newEmail" name="email" th:field="*{email}"
+										placeholder="Enter your email here" /> <span
+										class="text-danger" th:if="${#fields.hasErrors('email')}"
+										th:errors="*{email}"></span>
+								</div>
+								<button type="submit" class="btn btn-primary">Create
+									new account</button>
+							</form>
+						</div>
+
+						<!-- login tab -->
+						<div class="tab-pane fade" id="tab-2" role="tabpanel"
+							aria-labelledby="nav-login-tab"
+							th:classappend="${activeLogin} ? 'show active'">
+							<div class="bg-danger" th:if="${param.error}">Invalid email
+								and password.</div>
+							<div class="bg-danger" th:if="${param.logout}">You have
+								been logged out.</div>
+							<form name='login-form' th:action="@{/security_login}"
+								method='POST' class="jumbotron">
+								<div class="form-group">
+									<label for="email">Email: </label> <input
+										required="required" type="email" class="form-control"
+										id="username" name='email'
+										placeholder="Enter your email here" />
+								</div>
+								<div class="form-group">
+									<label for="password">Password: </label> <input
+										required="required" type="password" class="form-control"
+										id="password" name='password'
+										placeholder="Enter your password here" />
+								</div>
+
+								<button type="submit" class="btn btn-primary">Log in</button>
+
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
+							</form>
+						</div>
+
+						<!-- forget password tab -->
+						<div class="tab-pane fade" id="tab-3" role="tabpanel"
+							aria-labelledby="nav-forget-password-tab" th:classappend="${activeForgetPw} ? 'show active'">
+							<div th:if="${emailNotExist}" class="alert alert-danger">Email
+								doesn't exist.</div>
+							<div th:if="${forgetPasswordEmailSent}"
+								class="alert alert-success">Email sent.</div>
+							<form class="jumbotron" th:action="@{/forgetPassword}" method="post"
+								>
+								<div class="form-group">
+									<label for="username">User Name: </label> <input type="text"
+										class="form-control" id="username"
+										placeholder="Enter your user name here. Not require" />
+								</div>
+								<div class="form-group">
+									<label for="recoverEmail">Your Email: </label> <input
+										required="required" type="email" class="form-control"
+										id="recoverEmail" name="email" />
+									<p style="color: #828282">Enter your registered email
+										address here to get new password.</p>
+								</div>
+								<button type="submit" class="btn btn-primary">Send</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<nav xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:th="http://www.thymeleaf.org" th:fragment="admin-navbar"
+	class="menu-area">
+	<!-- logo -->
+	<div>
+		<img th:src="@{/images/logo1.png}" class="img-fluid" />			
+	</div>	
+	<div class="sidebar">
+		<ul class="menu-sidebar">
+			<li>
+				<a th:href="@{/admin/adminPortal}">
+				<img th:src="@{/images/dashboardIcon.png}" class="imgIcon">
+				<span class="title">Dashboard</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/admin/bookList}">
+					<img th:src="@{/images/bookIcon.png}" class="imgIcon">
+					<span class="title">Book Management</span>
+				</a>
+				<!-- <ul class="sub-menu">
+					<li><a th:href="@{/admin/book/add}">Add new book</a></li>
+					<li><a th:href="@{/admin/bookList}">View book list</a></li>
+				</ul> -->
+			</li>
+			<li>
+				<a th:href="@{/admin/cmrtList}">
+					<img th:src="@{/images/ui.png}" class="imgIcon">
+					<span class="title">Review Management</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/admin/categoryList}">
+					<img th:src="@{/images/category.png}" class="imgIcon">
+					<span class="title">Category Management</span>
+				</a>
+			</li>
+			<li>
+				<a th:href="@{/admin/userList}">
+					<img th:src="@{/images/userIcon.png}" class="imgIcon">
+					<span class="title">User Management</span>
+				</a>
+				<!-- <ul class="sub-menu">
+					<li><a th:href="@{/admin/userList}">View User list</a></li>
+				</ul> -->
+			</li>
+			<li>
+				<a th:href="@{/admin/orderList}">
+					<img th:src="@{/images/order.png}" class="imgIcon">
+					<span class="title">Order Management</span>
+				</a>
+				<!-- <ul class="sub-menu">
+					<li><a th:href="@{/admin/orderList}">Order list</a></li>
+				</ul> -->
+			</li>
+		</ul>
+	</div>
+		<!-- logout -->
+	<div th:if="${#request.userPrincipal}!=null">
+		<form th:action="@{/admin/security_logout}" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" /> <input type="submit"
+				class="btn btn-primary logout" value="Logout" />
+		</form>
+	</div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>Admin Portal</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container flex-dashboard">
+			<div class="flex-item-dashboard top-dashboard">
+				<div class="top-dashboard-item top-dashboard-item1" style="cursor: pointer;" 
+				onclick="location.href='../admin/userList'">
+					<span th:text="${countUser}" style="font-size: 100px; margin-left: 50px;"></span>						
+					<img src="../images/userRegister.png" class="img-dashboard">
+					<span style="padding: 30px;">Registered User</span>
+				</div>
+				<div class="top-dashboard-item top-dashboard-item2" style="cursor: pointer;" 
+				onclick="location.href='../admin/bookList'">
+					<span th:text="${countBook}" style="font-size: 100px; margin-left: 50px;"></span>
+					<img src="../images/bookList.png" class="img-dashboard">
+					<span style="padding: 30px;">Book Added</span>
+				</div>
+				<div class="top-dashboard-item top-dashboard-item3" style="cursor: pointer;" 
+				onclick="location.href='../admin/orderList'">
+					<span th:text="${countOrder}" style="font-size: 100px; margin-left: 50px;"></span>
+					<img src="../images/newOrder.png" class="img-dashboard">
+					<span style="padding: 30px;">Order Delivered</span>
+				</div>
+			</div>
+			<div class="flex-item-dashboard main-dashboard" style="cursor: pointer;" 
+				onclick="location.href='../admin/orderList'">
+				<span style="color: white; font-size:80px;">NEW ORDERS</span><br>
+				<span th:text="${countNewOrder}" style="font-size: 250px; color: white;"></span>
+				<img src="../images/order.png" class="img-main">
+			</div>
+		</div>
+	</section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

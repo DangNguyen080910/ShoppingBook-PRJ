@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>User management</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div>
+				<a href="../admin/adminPortal" style="color: red;">Dashboard</a>
+				<span style="color: green;">/User Management</span>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>USER MANAGEMENT</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+			</div>
+			<div class="mt-5">
+				<table id="userListTable">
+					<thead>
+						<tr>
+							<th scope="col">User ID</th>
+							<th scope="col">Username</th>
+							<th scope="col">Email</th>							
+							<th scope="col">Active</th>
+							<th scope="col">Operation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-th-each="user: ${userList}">
+							<td>
+								<a th:href="@{/admin/user/info(id=${user.id})}"> <span style="color: black;"
+									th:text="${user.id}"></span>
+								</a>
+							</td>
+							<td>
+								<a th:href="@{/admin/user/info(id=${user.id})}"> <span style="color: black;"
+									th:text="${user.username}"></span>
+								</a>
+							</td>
+							<td>
+								<a th:href="@{/admin/user/info(id=${user.id})}"> <span style="color: black;"
+									th:text="${user.email}"></span>
+								</a>
+							</td>
+							<td>
+								<a th:href="@{/admin/user/info(id=${user.id})}"> <span style="color: black;"
+									th:text="${user.enabled}"></span>
+								</a>
+							</td>
+							<td>
+								<input type="hidden" name="id" th:value="${user.id}"/>
+								<a th:id="${user.id}" class="btn btn-info unban-user">Unban Account</a>
+								<a th:id="${user.id}" class="btn btn-warning ban-user">Ban Account</a>
+								<a th:id="${user.id}" class="btn btn-danger delete-user">Delete</a>							
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

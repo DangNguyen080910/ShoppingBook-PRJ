@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/user-layout">
+<head>
+<title>Bookshelf</title>
+</head>
+<body>
+	<section layout:fragment="user-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span
+							th:text="${user}? ${#strings.toUpperCase(user.username)} : 'All Books'"></span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div>
+				<img class="img-fluid" th:src="@{/images/wood.png}"
+					style="margin-top: -36px" />
+			</div>
+			<div class="row mt-4">
+				<div class="col-sm-3">
+					<h3>
+						<label for="category">Category</label>
+					</h3>
+					<div class="list-group" id="category">
+																		
+						<a style="color: #fff; background-color: #007bff; border-color: #007bff;" th:href="@{/bookshelf(category='all')}"
+						th:classappend="${activeAll}? 'active'" class="list-group-item">All</a>
+							
+						<a th:each="category: ${categoryList}"
+						   th:href="@{/searchByCategory(category= ${category.category} )}"	
+						   th:classappend="${category.category}? 'active'"					   
+                           th:text="${category.category}"
+                           class="list-group-item"/>
+							
+						<!-- <a th:href="@{/searchByCategory(category='Programming')}"						
+							th:classappend="${activeProgramming}? 'active'"
+							class="list-group-item">Programming</a> 
+							
+						<a	th:href="@{/searchByCategory(category='Science Fiction')}"							
+							th:classappend="${activeScienceFiction}? 'active'"
+							class="list-group-item">Science Fiction</a> 	
+							
+						<a	th:href="@{/searchByCategory(category='Adventure')}"							
+							th:classappend="${activeAdventure}? 'active'"
+							class="list-group-item">Adventure</a> 
+							
+						<a  th:href="@{/searchByCategory(category='Mystery')}"							
+							th:classappend="${activeMystery}? 'active'"
+							class="list-group-item">Mystery</a> 
+							
+						<a  th:href="@{/searchByCategory(category='Arts &amp; Literature')}"
+							th:classappend="${activeArtsLiterature}? 'active'"
+							class="list-group-item">Arts &amp; Literature</a>
+						
+						<a  th:href="@{/searchByCategory(category='Horror')}"							
+							th:classappend="${activeHorror}? 'active'"
+							class="list-group-item">Horror</a>
+						
+						<a  th:href="@{/searchByCategory(category='History')}"							
+							th:classappend="${activeHistory}? 'active'"
+							class="list-group-item">History</a>
+							
+						<a  th:href="@{/searchByCategory(category='Memoir')}"							
+							th:classappend="${activeMemoir}? 'active'"
+							class="list-group-item">Memoir</a>	
+							
+						<a  th:href="@{/searchByCategory(category='Cooking')}"							
+							th:classappend="${activeCooking}? 'active'"
+							class="list-group-item">Cooking</a>
+								
+						<a  th:href="@{/searchByCategory(category='Development')}"							
+							th:classappend="${activeDevelopment}? 'active'"
+							class="list-group-item">Development</a>
+							
+						<a  th:href="@{/searchByCategory(category='Motivational')}"							
+							th:classappend="${activeMotivational}? 'active'"
+							class="list-group-item">Motivational</a>
+							
+						<a  th:href="@{/searchByCategory(category='Health')}"							
+							th:classappend="${activeHealth}? 'active'"
+							class="list-group-item">Health</a>
+							
+						<a  th:href="@{/searchByCategory(category='Travel')}"							
+							th:classappend="${activeTravel}? 'active'"
+							class="list-group-item">Travel</a>
+							
+						<a  th:href="@{/searchByCategory(category='Other')}"							
+						th:classappend="${activeOther}? 'active'"
+						class="list-group-item">Other...</a> -->
+													
+					</div>
+				</div>
+				<div class="col-sm-9">
+					<div th:if="${emptyList}">
+						<h5 style="font-style: italic;">Oops, no result is found. Try
+							something else or try again later.</h5>
+					</div>
+
+					<table id="bookList" class="mt-5">
+						<thead>
+							<tr>
+								<th>List of book</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr class="book-item" data-th-each="book : ${bookList}">
+								<td>
+									<div th:if="${book != null}">
+										<div class="row pt-3">
+											<div class="col-md-3">
+												<a th:href="@{/bookDetail?id=}+${book.id}"> 
+													<img class="img-fluid"
+													style="width: 110px; height: 150px;" 
+													th:src="#{adminPath}+@{/images/book/}+${book.id}+'.png'" />
+												</a>
+											</div>
+											<div class="col-md-9">
+												<a th:href="@{/bookDetail?id=}+${book.id}">
+													<strong th:text="${book.title}"></strong>
+												</a> <br>
+												<span th:text="${book.publicationDate}"></span>
+												<p th:text="${book.author}"></p>
+												<span style="font-size: x-large; color: #db3208;">
+													$<span th:text="${#numbers.formatDecimal(book.ourPrice, 0 , 'COMMA', 2, 'POINT')}"></span>
+												</span>
+												<span style="text-decoration: line-through;">
+													$<span th:text="${#numbers.formatDecimal(book.listPrice, 0 , 'COMMA', 2, 'POINT')}"></span>
+												</span>		
+														
+														
+										
+																				
+											</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

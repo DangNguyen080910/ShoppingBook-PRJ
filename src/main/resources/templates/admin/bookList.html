@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>Book management</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div>
+				<a href="../admin/adminPortal" style="color: red;">Dashboard</a>
+				<span style="color: green;">/Book Management</span>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>BOOK MANAGEMENT</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>				
+			</div>
+			<button type="button" class="btn btn-success">
+				<a href="../admin/book/add" style="color: white;">ADD NEW BOOK</a>
+			</button>
+			<div class="mt-5">
+				<table id="bookListTable">
+					<thead>
+						<tr>
+							<th style="padding-left: 9px;"><input type="checkbox" id="selectAllBooks"/></th>
+							<th style="padding-left: 9px;" scope="col">ID</th>
+							<th style="padding-left: 9px;" scope="col">Title</th>
+							<th style="padding-left: 9px;" scope="col">Author</th>
+							<th style="padding-left: 9px;" scope="col">Category</th>
+							<th style="padding-left: 9px;" scope="col">List Price</th>
+							<th style="padding-left: 9px;" scope="col">Our Price</th>
+							<!-- <th style="padding-left: 9px;" scope="col">Active</th> -->
+							<th style="padding-left: 9px;" scope="col">Operation</th>
+						</tr>
+					</thead>					
+					<tbody>
+						<tr data-th-each="book: ${bookList}" padding-left: 9px;>
+							<td>
+								<input type="hidden" name="id" th:value="${book.id}"/>
+								<input th:id="'selected'+${book.id}" class="checkboxBook" type="checkbox"/>
+							</td>
+							<td><a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.id}"></span>
+							</a></td>
+							<td><a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.title}"></span>
+							</a></td>
+							<td><a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.author}"></span>
+							</a></td>
+							<td><a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.category.category}"></span>
+							</a></td>
+							<td>$<a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.listPrice}"></span>
+							</a></td>
+							<td>$<a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.ourPrice}"></span>
+							</a></td>
+							<!-- <td><a th:href="@{/admin/book/info(id=${book.id})}"> <span style="color: black;"
+									th:text="${book.active}"></span>
+							</a></td>
+							 -->
+							<td>
+								<input type="hidden" name="id" th:value="${book.id}"/>
+								<a th:id="${book.id}" class="btn btn-danger delete-book">Delete</a>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<button th:id="deleteBookSelected" class="btn btn-danger">Delete</button>
+		</div>
+
+	</section>
+</body>
+</html>

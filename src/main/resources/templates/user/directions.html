@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/user-layout">
+<head>
+<title>Contact</title>
+</head>
+<body>
+	<section layout:fragment="user-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>Contact</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div>
+				<img class="img-fluid" th:src="@{/images/wood.png}"
+					style="margin-top: -36px" />
+			</div>
+			<div class="row mt-5">
+				<div class="row" style="margin-top: 10px">
+					<div class="col-sm-9 col-offset-3">
+						<img class="img-fluid" th:src="@{/images/direction.png}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

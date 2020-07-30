@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<title>Order Info</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div>	
+			<a href="../adminPortal" style="color: red;">Dashboard</a>
+			<a href="../orderList" style="color: green;">/Order Management</a>
+			<span style="color: blue;">/Order Info</span>
+		</div>
+		<div class="container mt-5">
+			<div class="row" style="margin-left: 5px;">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>ORDER INFORMATION</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+			</div>
+			<div class="container mt-5">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a th:href="@{/admin/orderList}"><i
+								class="fas fa-long-arrow-alt-left"></i>Go back</a></li>
+					</ol>
+				</nav>
+				<div class="row">
+					<div class="col-md-6">
+						<p>
+							<strong>Order ID: </strong><span th:text="${order.id}"></span>
+						</p>
+						<p>
+							<strong>Order Date: </strong><span th:text="${order.orderDate}"></span>
+						</p>
+						<p>
+							<strong>Shipping Date: </strong><span th:text="${order.shippingDate}"></span>
+						</p>
+						<p>
+							<strong>Status: </strong><span th:text="${order.orderStatus}"></span>
+						</p>
+						<p>
+							<strong>Total:  </strong><span th:text="${order.orderTotal}"></span>$
+						</p>
+						<p>
+							<strong>Shipping Method:  </strong><span th:text="${order.shippingMethod}"></span>
+						</p>
+						<p>
+							<strong>Customer Name:  </strong><span th:text="${order.user.username}"></span>
+						</p>
+						<p>
+							<strong>Address:  </strong>
+							 	   <span th:text="${order.shippingAddress.shippingAddressStreet1}"></span>
+								   <span th:text="${order.shippingAddress.shippingAddressCity}"></span>
+								   <span th:text="${order.shippingAddress.shippingAddressState}"></span>
+								   <span th:text="${order.shippingAddress.shippingAddressCountry}"></span>
+								   <span th:text="${order.shippingAddress.shippingAddressZipcode}"></span>
+						</p>
+						<p>
+							<strong>Payment Method:  </strong><span th:text="${order.payment.type}"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="text-align: center;">
+			<a th:href="@{/admin/order/printbill?id=}+${order.id}" class="btn btn-info">Print Bill</a>
+		</div>
+	</section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

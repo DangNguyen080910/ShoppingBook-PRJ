@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="ISO-8859-1"/>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>Order Management</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div>
+				<a href="../admin/adminPortal" style="color: red;">Dashboard</a>
+				<span style="color: green;">/Order Management</span>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>ORDER MANAGEMENT</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>				
+			</div>
+			<div class="mt-5">
+				<table id="userListTable">
+					<thead>
+						<tr>
+							<th scope="col">Order ID</th>
+							<th scope="col">Order Date</th>														
+							<th scope="col">Order Total</th>
+							<th scope="col">Order Status</th>
+							<th scope="col">Shipping Status</th>
+							<th scope="col">Operation</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-th-each="order: ${orderList}">
+							<td>
+								<a th:href="@{/admin/order/info(id=${order.id})}"> <span style="color: black;"
+									th:text="${order.id}"></span>
+								</a>
+							</td>
+							<td>
+								<a th:href="@{/admin/order/info(id=${order.id})}"> <span style="color: black;"
+									th:text="${order.orderDate}"></span>
+								</a>
+							</td>
+							<td>$
+								<a th:href="@{/admin/order/info(id=${order.id})}"> <span style="color: black;"
+									th:text="${order.orderTotal}"></span>
+								</a>
+							</td>
+							<td>
+								<a th:href="@{/admin/order/info(id=${order.id})}"> <span style="color: black;"
+									th:text="${order.orderStatus}"></span>
+								</a>
+							</td>
+							<td>
+								<a th:href="@{/admin/order/info(id=${order.id})}"> <span style="color: black;"
+									th:text="${order.active}"></span>
+								</a>
+							</td>
+							<td>
+								<input type="hidden" name="id" th:value="${order.id}"/>
+								<a th:id="${order.id}" class="btn btn-info dlv-order">Delivered</a>
+								<a th:id="${order.id}" class="btn btn-warning ndlv-order">Not yet</a>
+								<a th:id="${order.id}" class="btn btn-danger delete-order">Delete</a>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div style="text-align: center;">
+			<a th:href="@{'/createPdf'}">
+				<img src="../images/pdf.png" style="width: 50px; height:50px; margin-right: 10px;">
+			</a>
+			<a th:href="@{'/createExcel'}">
+				<img src="../images/excel.png" style="width: 50px; height:50px; margin-left: 10px;">
+			</a>
+		</div>
+	</section>
+</body>
+</html>

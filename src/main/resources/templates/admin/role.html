@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<title>Role</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>Role list</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div>
+				<img class="wood-img" th:src="@{/images/wood-1.png}"/>
+			</div>
+			<div class="row mt-3">
+				<div class="col-md-8">
+					<a th:href="@{/admin/role/add}" class="btn btn-primary">Add Role</a>
+				</div>
+				<div class="col-md-4">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Tìm kiếm..." />
+						<div class="input-group-append">
+							<span class="input-group-text" id="basic-addon2"> <i
+								class="fa fa-search"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<table class="table table-bordered table-hover mt-3 table-striped">
+				<thead>
+					<tr>
+						<th>No.</th>
+						<th>Role</th>
+						<th>Description</th>
+						<th>#</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${roles.empty}">
+						<td colspan="5">We don't have anything yet!</td>
+					</tr>
+					<tr th:each="item : ${roles}">
+						<td th:text="${itemStat.index + 1}"></td>
+						<td th:text="${item.name}"></td>
+						<td th:text="${item.description}"></td>
+						<td><a th:href="@{/admin/role/edit/{id}(id=${item.id})}"
+							class="btn btn-sm btn-info"> Edit </a> <a
+							th:href="@{/admin/role/delete/{id}(id=${item.id})}"
+							class="btn btn-sm btn-danger"> Delete </a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</section>
+</body>
+</html>

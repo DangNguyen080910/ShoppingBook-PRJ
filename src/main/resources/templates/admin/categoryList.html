@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/admin-layout">
+<head>
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
+<title>Category management</title>
+</head>
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div>
+				<a href="../admin/adminPortal" style="color: red;">Dashboard</a>
+				<span style="color: green;">/Category Management</span>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span>CATEGORY MANAGEMENT</span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>				
+			</div>
+			<button type="button" class="btn btn-success">
+				<a href="../admin/category/add" style="color: white;">ADD NEW CATEGORY</a>
+			</button>
+			<div class="mt-5">
+				<table id="userListTable">
+					<thead>
+						<tr>
+							<th scope="col">Category ID</th>
+							<th scope="col">Category</th>
+							<th scope="col">Operation</th>
+						</tr>
+					</thead>					
+					<tbody>
+						<tr data-th-each="category: ${categoryList}">
+							<td><span style="color: black;"
+									th:text="${category.id}"></span>
+							</td>
+							<td><span style="color: black;"
+									th:text="${category.category}"></span>
+							</td>
+							<td>
+								<input type="hidden" name="id" th:value="${category.id}"/>
+								<!-- <a th:href="@{/admin/book/edit?id=}+${book.id}" class="btn btn-info">Edit</a> -->
+								<a th:href="@{/admin/category/edit(id=${category.id})}"class="btn btn-info">Edit</a>
+								<a th:id="${category.id}" class="btn btn-danger delete-category">Delete</a>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

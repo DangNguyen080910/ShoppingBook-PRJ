@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="layouts/user-layout">
+<head>
+<title>Book Detail</title>
+</head>
+<body>
+	<!-- th:field="*{book.id}" == name="id" + value="${book} -->
+	<section layout:fragment="user-content">
+		<div class="container">
+			<div th:if="${success}" class="row alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true"></span>
+				</button>
+				<span th:text="${success}"></span>
+			</div>
+			<div class="row">
+				<div class="col-md-8">
+					<h2 class="section-headline">
+						<span
+							th:text="${user}? ${#strings.toUpperCase(user.username)} : 'Book Detail'"></span>
+					</h2>
+					<hr class="line" style="margin-top: -15px;" />
+				</div>
+				<div class="col-md-4">
+					<img th:src="@{/images/logo.png}" class="img-fluid" />
+				</div>
+			</div>
+			<div>
+				<img class="img-fluid" th:src="@{/images/wood.png}"
+					style="margin-top: -36px" />
+			</div>
+
+			<form th:action="@{/account/shoppingCart/addItem}" method="POST"
+				class="mt-4">
+				<input type="hidden" th:field="*{book.id}" />
+				<div class="row">
+					<div class="col-md-3">
+						<button type="button" class="btn btn-secondary">
+							<a th:href="@{/bookshelf}" style="color: white;">Back to book list</a>
+						</button> <br> <br>
+						<img class="img-fluid" th:src="#{adminPath}+@{/images/book/}+${book.id}+'.png'" />
+					</div>
+					<div class="col-md-9">
+						<h3>
+							<span th:if="${addBookSuccess}" style="color: forestgreen">
+							<i class="fa fa-check" aria-hidden="true" style="color: forestgreen"></i>
+							Added to cart.
+							</span>
+						</h3>
+						<h3>
+							<span th:if="${notEnoughStock}" style="color: red">
+								Oops, only <span th:text="${book.inStockNumber}"></span> In Stock.
+							</span>
+						</h3>
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th colspan="2"><h3 th:text="${book.title}"></h3></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										<h5>
+											<strong>Author: </strong>
+											<span th:text="${book.author}"></span>
+										</h5>
+										<h5>
+											<strong>Publisher: </strong>
+											<span th:text="${book.publisher}"></span>
+										</h5>
+										<h5>
+											<strong>Publication Date: </strong>
+											<span th:text="${book.publicationDate}"></span>
+										</h5>
+										<h5>
+											<strong>Language: </strong>
+											<span th:text="${book.language}"></span>
+										</h5>
+										<h5>
+											<strong>Category: </strong>
+											<span th:text="${book.category.category}"></span>
+										</h5>
+										<h5>
+											<strong>Format: </strong>
+											<span th:text="${book.format}"></span>
+										</h5>
+										<h5>
+											<strong>Number Page: </strong>
+											<span th:text="${book.numberOfPages}"></span> pages
+										</h5>
+										<h5>
+											<strong>ISBN: </strong>
+											<span th:text="${book.isbn}"></span>
+										</h5>
+										<h5>
+											<strong>Shipping Weight: </strong>
+											<span th:text="${book.shippingWeight}"></span>
+										</h5>
+									</td>
+									<td>
+										<div class="row mt-4" style="text-align: center;">
+											<div class="col-md-12">
+												<h4>
+													Our Price: 
+													<span style="color: #db3208;">
+														$<span th:text="${book.ourPrice}"></span>
+													</span>
+												</h4>
+												<p>
+													List Price: 
+													<span style="text-decoration: line-through">
+														$<span th:text="${book.listPrice}"></span>
+													</span>
+												</p>
+												<p>
+													You save: 
+													$<span 
+														th:text="${#numbers.formatDecimal((book.listPrice - book.ourPrice), 0, 'COMMA', 2, 'POINT' )}">
+													</span>
+												</p>
+												<p>
+												 	<span>Quantity: </span> 
+												 	<select name="qty">
+														<option th:each="qty : ${qtyList}" th:value="${qty}"
+															th:text="${qty}">
+														</option>
+													</select>
+												</p>
+											</div>
+											<div class="col-md-12">
+												<h4 th:if="*{book.inStockNumber&gt;10}" style="color: green; 
+												text-align: center;">
+											 		<span>In Stock</span> 
+									 	 		</h4>
+												<h4 th:if="*{book.inStockNumber&lt;10 and book.inStockNumber&gt;0}"
+												style="color: green; text-align: center;">
+													Only <span th:text="${book.inStockNumber}"> In Stock</span>
+												</h4>
+												<h4 th:if="*{book.inStockNumber==0}" style="color: darkred; 
+												text-align: center;">
+													Unavailable
+												</h4>
+												<div th:if="${#request.userPrincipal}!=null">
+													<button type="submit" class="btn btn-warning"
+													style="color: black; border: 1px solid black; 
+													padding: 10px 40px 10px 40px;">
+													Add To Cart
+													</button>
+												</div>
+												<div th:if="${#request.userPrincipal}==null">
+													<button type="button" 
+													onclick="alert('Please Login To Use This Function!!!')" 
+													class="btn btn-warning"
+													style="color: black; border: 1px solid black; 
+													padding: 10px 40px 10px 40px;">
+													Add To Cart
+													</button>
+												</div>
+											</div>
+										</div>
+
+									</td>
+								</tr>
+								<tr>
+									
+									<td colspan="2">
+									<h5>
+									<strong>Description:</strong>									
+									</h5>
+									<b th:utext="${book.description}"></b>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</form>			
+<div th:if="${#request.userPrincipal}!=null">
+	<div class="col-md-12">
+		<div class="box">
+			<h4>Your Comment ...<span class="glyphicon glyphicon-pencil"></span></h4>
+			<form th:action="@{/user/cmrt/add}" method="POST" enctype="multipart/form-data">
+			<fieldset>
+				<div class="form-group">
+					<textarea class="form-control" rows="3" name="comment" style="font-size: 1.3em;" required></textarea>
+				</div>
+			<div class="star_rating">
+				<input id="star-5" type="radio" name="rating" value="5">
+				<label for="star-5" title="5 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-4" type="radio" name="rating" value="4">
+				<label for="star-4" title="4 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-3" type="radio" name="rating" value="3">
+				<label for="star-3" title="3 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-2" type="radio" name="rating" value="2">
+				<label for="star-2" title="2 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-1" type="radio" name="rating" value="1">
+				<label for="star-1" title="1 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+			</div>
+			<input type="text" hidden="hidden" class="form-control" id="book" name="book" th:value="${book.id}"/>
+			<input type="text" hidden="hidden" class="form-control" id="user" name="user" th:value="${userFindID.id}"/>
+			<input type="date" hidden="hidden" class="form-control" id="date" name="date" th:value="${{dateNow}}">
+			
+			<button type="submit" class="btn btn-success" name="post">POST</button>
+			</fieldset>
+			</form>
+		</div>			
+	</div>
+</div>
+<div th:if="${#request.userPrincipal}==null">
+<div class="col-md-12">
+		<div class="box">
+			<h4>Your Comment ...<span class="glyphicon glyphicon-pencil"></span></h4>
+			<form method="POST" enctype="multipart/form-data">
+			<fieldset>
+				<div class="form-group">
+					<textarea class="form-control" rows="3" name="comment" style="font-size: 1.3em;" required></textarea>
+				</div>
+			<div class="star_rating">
+				<input id="star-5" type="radio" name="rating" value="5">
+				<label for="star-5" title="5 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-4" type="radio" name="rating" value="4">
+				<label for="star-4" title="4 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-3" type="radio" name="rating" value="3">
+				<label for="star-3" title="3 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-2" type="radio" name="rating" value="2">
+				<label for="star-2" title="2 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+				<input id="star-1" type="radio" name="rating" value="1">
+				<label for="star-1" title="1 stars">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</label>
+			</div>
+			<button type="button" onclick="alert('Please Login To Use This Function!!!')"  class="btn btn-success" name="post">POST</button>
+			</fieldset>
+			</form>
+		</div>			
+	</div>
+</div>
+
+<div data-th-each="cmrt: ${cmrtList}">
+	<div class="col-md-12">
+		<div class="box">	
+			<span style="color: black; font-size: 1.5em;" th:text="${cmrt.user.username}"></span><br>
+			<span style="color: black; font-size: 0.8em;" th:text="${#dates.format(cmrt.date, 'dd-MMM-yyyy')}"></span><br>
+			<textarea class="form-control" rows="3" name="comment" readonly style="color: gray;" th:text="${cmrt.comment}"></textarea>
+						
+			<div th:if="${cmrt.rating} == '1'">
+				<div class="1 star" style="direction: rtl; float: left;">
+					<label for="star-5" title="5 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label for="star-4" title="4 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label for="star-3" title="3 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label for="star-2" title="2 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-1" title="1 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				</div>
+			</div>		
+			<div th:if="${cmrt.rating} == '2'">
+				<div class="1 star" style="direction: rtl; float: left;">
+					<label for="star-5" title="5 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label for="star-4" title="4 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label for="star-3" title="3 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-2" title="2 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-1" title="1 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				</div>
+			</div>
+			<div th:if="${cmrt.rating} == '3'">
+				<div class="1 star" style="direction: rtl; float: left;">
+					<label for="star-5" title="5 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label for="star-4" title="4 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-3" title="3 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-2" title="2 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-1" title="1 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				</div>
+			</div>
+			<div th:if="${cmrt.rating} == '4'">
+				<div class="1 star" style="direction: rtl; float: left;">
+					<label for="star-5" title="5 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-4" title="4 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-3" title="3 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-2" title="2 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-1" title="1 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				</div>
+			</div>
+			<div th:if="${cmrt.rating} == '5'">
+				<div class="1 star" style="direction: rtl; float: left;">
+					<label style="color: #f2b600;" for="star-5" title="5 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-4" title="4 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-3" title="3 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-2" title="2 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				
+					<label style="color: #f2b600;" for="star-1" title="1 stars">
+						<i class="fa fa-star" aria-hidden="true"></i>
+					</label>
+				</div>
+			</div>
+			<br>
+		</div>
+	</div>
+</div>
+</div>
+</section>	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

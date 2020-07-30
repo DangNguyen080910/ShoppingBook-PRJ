@@ -1,0 +1,30 @@
+<script xmlns:th="http://www.thymeleaf.org"
+	th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script xmlns:th="http://www.thymeleaf.org"
+	th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- data table -->
+<script xmlns:th="http://www.thymeleaf.org"
+	th:src="@{/js/jquery.dataTables.min.js}"></script>
+<script xmlns:th="http://www.thymeleaf.org"
+	th:src="@{/js/dataTables.bootstrap.min.js}"></script>
+<script xmlns:th="http://www.thymeleaf.org" th:src="@{/js/script.js}"></script>
+<script xmlns:th="http://www.thymeleaf.org" th:src="@{/js/bootbox.min.js}"></script>
+<script xmlns:th="http://www.thymeleaf.org" th:src="@{/js/script-admin.js}"></script>
+
+<script>
+	$(document).ready(function() {
+		$("#bookListTable").DataTable({
+			"lengthMenu" : [ [ 5, 10, 15, 20, -1 ], [ 5, 10, 15, 20, "All" ] ],
+			"ordering" : false,
+			stateSave : true
+		});
+		
+		$("#userListTable").DataTable({
+			"lengthMenu" : [ [  5, 10, 15, 20, -1 ], [ 5, 10, 15, 20, "All" ] ],
+			"ordering" : false,
+			stateSave : true
+		});
+			
+	});
+</script>
+
